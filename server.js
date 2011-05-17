@@ -8,7 +8,16 @@ var express = require('express')
     , app = express.createServer()
     , io = require('socket.io')
     , socket = io.listen(app)
-    , version = '1.1.awesome';
+    , version = '1.2.awesomer';
+
+//Handle the connect event for the socket.io server in order to send out the 
+//current codebase version to any connecting clients.
+socket.on('connection', function(client) {
+    client.send({
+        event: 'version'
+        , data: version
+    });
+});
 
 //Tell express where to find our jQuery library
 app.use(express.static('./public'));

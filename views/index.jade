@@ -7,7 +7,8 @@ html(lang='en')
     script
       $(document).ready(function () { 
         //Crockford compliance! Define all the need variables here
-        var socket, connected, trying, tryConnect;
+        var socket, connected, trying, tryConnect
+            , version = '#{version}';                   //Keep track of the code version at the time this page was rendered
 
         //- Setup the socket library. The rememberTransport and tryTransportsOnConnectTimeout on neccessary
         //- because the defaults will cause some browsers to degrade to crappy transports when they are 
@@ -43,6 +44,17 @@ html(lang='en')
             connected = false;
             trying = setTimeout(tryConnect, 500);
             $('#disconnectMessage').show();
+        });
+
+        //- Handle the message event to see if we are getting a version message from the server
+        //- If we do, check it's contents to make sure we are on the latest and greatest. If we
+        //- are out of date, force a reload to get the latest code.
+        socket.on('message', function (msg) {
+            if (msg && msg.event === 'version' && version !== msg.data) {
+                setTimeout(function() {
+                    window.location.reload();
+                }, 5000);
+            }
         });
 
         //- Start the connection
