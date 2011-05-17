@@ -1,0 +1,35 @@
+!!! 5
+html(lang='en')
+  head
+    title fzysqr.com client updating demo
+    script(type='text/javascript', src='/js/jquery-1.5.1.js')
+    script(type='text/javascript', src='/socket.io/socket.io.js')
+    script
+      $(document).ready(function () { 
+        //Crockford compliance! Define all the need variables here
+        var socket;
+            
+        //- Setup the socket library. The rememberTransport and tryTransportsOnConnectTimeout on neccessary
+        //- because the defaults will cause some browsers to degrade to crappy transports when they are 
+        //- disconnected (think suspended laptop) and will subsequently stick on said crappy transport
+        //- even after the network is up again.
+        socket = new io.Socket(null, {
+            rememberTransport: false
+            , tryTransportsOnConnectTimeout: false 
+        });
+
+        //- Simple connect event so we can see that we are connecting
+        socket.on('connect', function () { 
+            console.log('Connected! Oh hai!');
+        }); 
+
+        //- Start the connection
+        socket.connect();
+      });
+  body
+    p Hello fzysqr.com reader! 
+      br
+      br
+      | This is version:
+    //- Render the version variable
+    h1 #{version}
