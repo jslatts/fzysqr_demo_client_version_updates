@@ -1,8 +1,3 @@
-/* Demonstration code for http://fzysqr.com/
- *
- * Released under MIT license.
- */
-
 //Include our various dependencies for this demo and set up socket.io to work with express
 var express = require('express')
     , app = express.createServer()

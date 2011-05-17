@@ -6,14 +6,14 @@ html(lang='en')
     script(type='text/javascript', src='/socket.io/socket.io.js')
     script
       $(document).ready(function () { 
-        //Crockford compliance! Define all the need variables here
+        //-Crockford compliance! Define all the need variables here
         var socket, connected, trying, tryConnect
             , version = '#{version}';                   //Keep track of the code version at the time this page was rendered
 
-        //- Setup the socket library. The rememberTransport and tryTransportsOnConnectTimeout on neccessary
-        //- because the defaults will cause some browsers to degrade to crappy transports when they are 
-        //- disconnected (think suspended laptop) and will subsequently stick on said crappy transport
-        //- even after the network is up again.
+        //- Setup the socket library. The rememberTransport and tryTransportsOnConnectTimeout 
+        //- are neccessary because the defaults will cause some browsers to degrade to 
+        //- crappy transports when they are disconnected (think suspended laptop) and will 
+        //- subsequently stick on said crappy transport even after the network is up again.
         socket = new io.Socket(null, {
             rememberTransport: false
             , tryTransportsOnConnectTimeout: false 
